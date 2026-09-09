@@ -118,7 +118,12 @@ modules:
       - yarn install --frozen-lockfile --offline
       - yarn electron-forge package --platform=linux
       - mkdir -p ${FLATPAK_DEST}/lib/com.dygma.bazecor
-      - cp -r out/Bazecor-linux-x64/* ${FLATPAK_DEST}/lib/com.dygma.bazecor/
+      - |
+        case "$(uname -m)" in
+          x86_64)  BAZECOR_ARCH=x64 ;;
+          aarch64) BAZECOR_ARCH=arm64 ;;
+        esac
+        cp -r out/Bazecor-linux-${BAZECOR_ARCH}/* ${FLATPAK_DEST}/lib/com.dygma.bazecor/
       - install -Dm755 Bazecor "${FLATPAK_DEST}/bin/Bazecor"
       #- install -Dm644 build/com.dygma.bazecor.desktop "${FLATPAK_DEST}/share/applications/com.dygma.bazecor.desktop"
       #- install -Dm644 build/com.dygma.bazecor.metainfo.xml "${FLATPAK_DEST}/share/metainfo/com.dygma.bazecor.metainfo.xml"
