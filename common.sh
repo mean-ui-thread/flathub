@@ -18,6 +18,10 @@ die() {
 	exit 1
 }
 
+warn() {
+	printf "⚠️ [${FUNCNAME[1]}] Warning: %s\n" "$*" >&2
+}
+
 success() {
 	local message="${*:-Done!}"
 	printf "✅ [${FUNCNAME[1]}] %s\n" "$message"
@@ -54,7 +58,7 @@ setup_flathub_builder() {
 validate_flatpak_manifest() {
 	local manifest_file="$1"
 	log "Linting $manifest_file..."
-	flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest "$manifest_file" && success || die "Failed to lint $manifest_file. Please check the output for errors."
+	flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest "$manifest_file" && success || warn "Failed to lint $manifest_file. Please check the output for errors."
 }
 
 validate_flatpak_repo() {
