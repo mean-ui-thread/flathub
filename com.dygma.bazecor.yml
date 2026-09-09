@@ -13,7 +13,7 @@ finish-args:
   - --env=ELECTRON_OZONE_PLATFORM_HINT=auto
   - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons
   - --filesystem=/run/udev:ro
-  #- --filesystem=host-etc:ro # This flag requires explicit permission to be granted by flathub.
+  - --filesystem=host-etc:ro # This flag requires explicit permission to be granted by flathub.
   - --share=ipc
   - --share=network
   - --socket=fallback-x11
